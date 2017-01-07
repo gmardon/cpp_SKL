@@ -8,32 +8,32 @@ typedef struct
 {
     Class base;
     int x, y;
-  	char *last_to_string;
+    char *last_to_string;
 } PointClass;
 
-static void ctor(Object* self, va_list * args)
+static void	ctor(Object* self, va_list * args)
 {
-  PointClass *point = (PointClass*) self;
+  PointClass	*point = (PointClass*) self;
 
   point->x = va_arg(*args, int);
   point->y = va_arg(*args, int);
   va_end(*args);
 }
 
-static void dtor(Object* self)
+static void	dtor(Object* self)
 {
-  PointClass *point;
+  PointClass	*point;
 
   point = (PointClass*) self;
   if (point->last_to_string)
     free(point->last_to_string);
 }
 
-static char const *to_string(Object *self)
+static char const	*to_string(Object *self)
 {
-  PointClass *point;
-  char *str;
-  int size;
+  PointClass		*point;
+  char			*str;
+  int			size;
 
   point = (PointClass*) self;
   if (point->last_to_string)
@@ -45,11 +45,11 @@ static char const *to_string(Object *self)
   return (str);
 }
 
-static Object *add_operator(const Object* self, const Object *other)
+static Object		*add_operator(const Object* self, const Object *other)
 {
-  PointClass *self_point;
-  PointClass *other_point;
-  PointClass *result_point;
+  PointClass		*self_point;
+  PointClass		*other_point;
+  PointClass		*result_point;
 
   self_point = (PointClass*) self;
   other_point = (PointClass*) other;
@@ -59,11 +59,11 @@ static Object *add_operator(const Object* self, const Object *other)
   return (result_point);
 }
 
-static Object *sub_operator(const Object* self, const Object *other)
+static Object	*sub_operator(const Object* self, const Object *other)
 {
-  PointClass *self_point;
-  PointClass *other_point;
-  PointClass *result_point;
+  PointClass	*self_point;
+  PointClass	*other_point;
+  PointClass	*result_point;
 
   self_point = (PointClass*) self;
   other_point = (PointClass*) other;
