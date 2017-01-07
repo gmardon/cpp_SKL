@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "raise.h"
 #include "int.h"
 #include "new.h"
 
@@ -16,7 +17,7 @@ static void	ctor(Object* self, va_list * args)
   IntClass	*obj = (IntClass*) self;
 
   if (args != NULL)
-    obj->value = va_arg(args, int);
+    obj->value = va_arg(*args, int);
 
   va_end(*args);
 }
@@ -39,7 +40,8 @@ static char const	*to_string(Object *self)
   obj = (IntClass*) self;
   if (obj->last_to_string)
     free(obj->last_to_string);
-  str = malloc(12);
+  if ((str = malloc(12)) == NULL)
+    raise("Out of memory");
   size = sprintf(str, "%d", obj->value);
   obj->last_to_string = str;
   str[size] = 0;

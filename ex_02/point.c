@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "point.h"
+#include "raise.h"
 
 typedef struct
 {
@@ -37,7 +38,8 @@ static char const	*to_string(Object *self)
   point = (PointClass*) self;
   if (point->last_to_string)
     free(point->last_to_string);
-  str = malloc(26 + strlen(point->base.__name__));
+  if ((str = malloc(26 + strlen(point->base.__name__))) == NULL)
+    raise("Out of memory");
   size = sprintf(str, "<%s (%d, %d)>", point->base.__name__, point->x, point->y);
   point->last_to_string = str;
   str[size] = 0;

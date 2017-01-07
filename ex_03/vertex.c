@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "raise.h"
 #include "vertex.h"
 #include "new.h"
 
@@ -48,7 +49,8 @@ static char const *to_string(Object *self)
   vertex = (VertexClass*) self;
   if (vertex->last_to_string)
     free(vertex->last_to_string);
-  str = malloc(38 + strlen(vertex->base.__name__));
+  if ((str = malloc(38 + strlen(vertex->base.__name__))) == NULL)
+    raise("Out of memory");
   size = sprintf(str, "<%s (%d, %d, %d)>", vertex->base.__name__, vertex->x, vertex->y, vertex->z);
   vertex->last_to_string = str;
   str[size] = 0;
