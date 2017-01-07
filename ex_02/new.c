@@ -5,8 +5,9 @@
 ** Login   <guillaume.mardon@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jan  7 16:57:26 2017 Guillaume MARDON
-** Last update Sat Jan  7 20:28:57 2017 Romain Goasdoue
+** Last update Sat Jan  7 20:53:41 2017 Romain Goasdoue
 */
+
 #include <string.h>
 #include <stdlib.h>
 #include "raise.h"
