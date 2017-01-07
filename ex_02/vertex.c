@@ -5,7 +5,7 @@
 ** Login   <guillaume.mardon@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jan  7 18:09:19 2017 Guillaume MARDON
-** Last update Sat Jan  7 18:18:52 2017 Guillaume MARDON
+** Last update Sat Jan  7 19:52:56 2017 Guillaume MARDON
 */
 #include <stdio.h>
 #include <string.h>
@@ -16,21 +16,26 @@ typedef struct
 {
     Class base;
     int x, y, z;
+  	char *last_to_string;
 } VertexClass;
 
-static void Vertex_ctor(Object* self, va_list * args)
+static void ctor(Object* self, va_list * args)
 {
-  VertexClass *point = (VertexClass*) self;
+  VertexClass *vertex = (VertexClass*) self;
 
-  point->x = va_arg(*args, int);
-  point->y = va_arg(*args, int);
-  point->z = va_arg(*args, int);
+  vertex->x = va_arg(*args, int);
+  vertex->y = va_arg(*args, int);
+  vertex->z = va_arg(*args, int);
   va_end(*args);
 }
 
-static void Vertex_dtor(Object* self)
+static void dtor(Object* self)
 {
-    (void) self;
+  VertexClass *vertex;
+
+  vertex = (VertexClass *)self;
+  if (vertex->last_to_string)
+    free(vertex->last_to_string);
 }
 
 static char const *to_string(Object *self)
@@ -40,15 +45,18 @@ static char const *to_string(Object *self)
   int size;
 
   vertex = (VertexClass*) self;
+  if (vertex->last_to_string)
+    free(vertex->last_to_string);
   str = malloc(38 + strlen(vertex->base.__name__));
   size = sprintf(str, "<%s (%d, %d, %d)>", vertex->base.__name__, vertex->x, vertex->y, vertex->z);
+  vertex->last_to_string = str;
   str[size] = 0;
   return (str);
 }
 
 static VertexClass _description = {
-    { sizeof(VertexClass), "Vertex", &Vertex_ctor, &Vertex_dtor, &to_string },
-    0, 0, 0
+    { sizeof(VertexClass), "Vertex", &ctor, &dtor, &to_string },
+    0, 0, 0, NULL
 };
 
 Class* Vertex = (Class*) &_description;

@@ -7,9 +7,10 @@ typedef struct
 {
     Class base;
     int x, y;
+  	char *last_to_string;
 } PointClass;
 
-static void Point_ctor(Object* self, va_list * args)
+static void ctor(Object* self, va_list * args)
 {
   PointClass *point = (PointClass*) self;
 
@@ -18,9 +19,13 @@ static void Point_ctor(Object* self, va_list * args)
   va_end(*args);
 }
 
-static void Point_dtor(Object* self)
+static void dtor(Object* self)
 {
-    (void) self;
+  PointClass *point;
+
+  point = (PointClass*) self;
+  if (point->last_to_string)
+    free(point->last_to_string);
 }
 
 static char const *to_string(Object *self)
@@ -30,15 +35,18 @@ static char const *to_string(Object *self)
   int size;
 
   point = (PointClass*) self;
+  if (point->last_to_string)
+    free(point->last_to_string);
   str = malloc(26 + strlen(point->base.__name__));
   size = sprintf(str, "<%s (%d, %d)>", point->base.__name__, point->x, point->y);
+  point->last_to_string = str;
   str[size] = 0;
   return (str);
 }
 
 static PointClass _description = {
-    { sizeof(PointClass), "Point", &Point_ctor, &Point_dtor, &to_string },
-    0, 0
+    { sizeof(PointClass), "Point", &ctor, &dtor, &to_string },
+    0, 0, NULL
 };
 
 Class* Point = (Class*) &_description;
