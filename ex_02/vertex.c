@@ -5,8 +5,9 @@
 ** Login   <guillaume.mardon@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jan  7 18:09:19 2017 Guillaume MARDON
-** Last update Sat Jan  7 19:52:56 2017 Guillaume MARDON
+** Last update Sat Jan  7 20:30:49 2017 Romain Goasdoue
 */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -19,9 +20,9 @@ typedef struct
   	char *last_to_string;
 } VertexClass;
 
-static void ctor(Object* self, va_list * args)
+static void	ctor(Object* self, va_list * args)
 {
-  VertexClass *vertex = (VertexClass*) self;
+  VertexClass	*vertex = (VertexClass*) self;
 
   vertex->x = va_arg(*args, int);
   vertex->y = va_arg(*args, int);
@@ -29,20 +30,20 @@ static void ctor(Object* self, va_list * args)
   va_end(*args);
 }
 
-static void dtor(Object* self)
+static void	dtor(Object* self)
 {
-  VertexClass *vertex;
+  VertexClass	*vertex;
 
   vertex = (VertexClass *)self;
   if (vertex->last_to_string)
     free(vertex->last_to_string);
 }
 
-static char const *to_string(Object *self)
+static char const	*to_string(Object *self)
 {
-  VertexClass *vertex;
-  char *str;
-  int size;
+  VertexClass		*vertex;
+  char			*str;
+  int			size;
 
   vertex = (VertexClass*) self;
   if (vertex->last_to_string)

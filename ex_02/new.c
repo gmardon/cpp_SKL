@@ -5,17 +5,16 @@
 ** Login   <guillaume.mardon@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jan  7 16:57:26 2017 Guillaume MARDON
-** Last update Sat Jan  7 17:41:16 2017 Guillaume MARDON
+** Last update Sat Jan  7 20:28:57 2017 Romain Goasdoue
 */
 #include <string.h>
 #include <stdlib.h>
 #include "raise.h"
-#include "raise.h"
 #include "new.h"
 
-Object* va_new(Class* class, va_list* ap)
+Object*		va_new(Class* class, va_list* ap)
 {
-  Class *obj;
+  Class		*obj;
 
   if ((obj = malloc(class->__size__)) == NULL)
     raise("Out of memory");
@@ -24,16 +23,16 @@ Object* va_new(Class* class, va_list* ap)
   return (obj);
 }
 
-Object* new(Class * class, ...)
+Object*		new(Class * class, ...)
 {
   va_list	list;
   va_start(list, class);
   return (va_new(class, &list));
 }
 
-void delete(Object* ptr)
+void		delete(Object* ptr)
 {
-  Class *obj;
+  Class		*obj;
 
   obj = (Class *)ptr;
   obj->__del__(obj);

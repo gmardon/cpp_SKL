@@ -10,29 +10,29 @@ typedef struct
   	char *last_to_string;
 } PointClass;
 
-static void ctor(Object* self, va_list * args)
+static void	ctor(Object* self, va_list * args)
 {
-  PointClass *point = (PointClass*) self;
+  PointClass	*point = (PointClass*) self;
 
   point->x = va_arg(*args, int);
   point->y = va_arg(*args, int);
   va_end(*args);
 }
 
-static void dtor(Object* self)
+static void	dtor(Object* self)
 {
-  PointClass *point;
+  PointClass	*point;
 
   point = (PointClass*) self;
   if (point->last_to_string)
     free(point->last_to_string);
 }
 
-static char const *to_string(Object *self)
+static char const	*to_string(Object *self)
 {
-  PointClass *point;
-  char *str;
-  int size;
+  PointClass		*point;
+  char			*str;
+  int			size;
 
   point = (PointClass*) self;
   if (point->last_to_string)
