@@ -5,17 +5,17 @@
 ** Login   <guillaume.mardon@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jan  7 16:57:26 2017 Guillaume MARDON
-** Last update Sat Jan  7 17:34:32 2017 Guillaume MARDON
+** Last update Sat Jan  7 18:32:04 2017 Romain Goasdoue
 */
+
 #include <string.h>
 #include <stdlib.h>
 #include "raise.h"
-#include "raise.h"
 #include "new.h"
 
-void* new(Class* class)
+void*		new(Class* class)
 {
-  Class *obj;
+  Class		*obj;
 
   if ((obj = malloc(class->__size__)) == NULL)
     raise("Out of memory");
@@ -24,9 +24,9 @@ void* new(Class* class)
   return (obj);
 }
 
-void delete(Object* ptr)
+void		delete(Object* ptr)
 {
-  Class *obj;
+  Class		*obj;
 
   obj = (Class *)ptr;
   obj->__del__(obj);
